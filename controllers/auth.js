@@ -117,6 +117,8 @@ const refreshAccessTokenController = async (req, res) => {
     const cookies = req.cookies
 
     if (!cookies || !cookies.jwt) {
+        console.log('No refresh token found in cookies');
+
         return res.send(error(401, 'RefreshToken in cookie is required'))
     }
 
@@ -128,10 +130,12 @@ const refreshAccessTokenController = async (req, res) => {
         const _id = decoded._id
 
         const accessToken = generateAccessToken({ _id })
+        console.log('Access token generated:', accessToken);
 
         return res.send(success(201, { accessToken }))
 
     } catch (e) {
+        console.log('Error verifying refresh token:', e.message);
         return res.send(error(500, e.message))
     }
 }
