@@ -17,7 +17,13 @@ const userSchema = mongoose.Schema({
     },
     avatar: {
         url: String
-    }
+    },
+    projects: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'CablesmithProject'
+        }
+    ]
 }, { timestamps: true }
 )
 

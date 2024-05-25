@@ -145,7 +145,7 @@ const refreshAccessTokenController = async (req, res) => {
 const generateAccessToken = (data) => {
     try {
         const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_PRIVATE_KEY, {
-            expiresIn: '15m'
+            expiresIn: '1d'
         })
 
         return accessToken;
