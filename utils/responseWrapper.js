@@ -1,4 +1,3 @@
-
 const success = (statusCode, result) => {
     return {
         statusCode,

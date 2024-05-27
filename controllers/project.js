@@ -9,7 +9,7 @@ const createProjectController = async (req, res) => {
 
         if (!title || !desc || !location) {
 
-            return res.send(error(400, "All fields are required"))
+            return res.status(400).send(error(400, "All fields are required"))
         }
 
         const owner = req._id
@@ -19,7 +19,7 @@ const createProjectController = async (req, res) => {
         const existingTitle = await Project.findOne({ title, owner })
 
         if (existingTitle) {
-            return res.send(error(409, 'Please select different title'))
+            return res.status(409).send(error(409, 'Please select different title'))
         }
 
         const project = await Project.create({
@@ -33,10 +33,10 @@ const createProjectController = async (req, res) => {
 
         await user.save()
 
-        return res.send(success(201, { project }))
+        return res.status(201).send(success(201, { project }))
 
     } catch (e) {
-        return res.send(error(500, e.message))
+        return res.status(500).send(error(500, e.message))
     }
 }
 
@@ -53,19 +53,9 @@ const myProjects = async (req, res) => {
         if (!projects || projects.length === 0) {
             return res.status(400).send(error(400, 'No projects found!'));
         }
+        projects.reverse()
 
         return res.status(200).send(success(200, { projects }));
-
-        // const myProjects = await Project.findById(projectId === userId)
-        // const user = await Project.findById(userId).populate('projects')
-
-        // const user = await User.findById(userId).populate('projects')
-
-        // if (!user) {
-        //     return res.send(error(400, 'No project found !'))
-        // }
-
-        // return res.send(success(200, { projects: user.projects }))
 
     } catch (e) {
         return res.send(error(500, e.message))
