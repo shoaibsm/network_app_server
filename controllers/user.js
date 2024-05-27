@@ -6,7 +6,7 @@ const getMyInfo = async (req, res) => {
     try {
         const _id = req._id
 
-        const user = await User.findById({ _id }).populate('projects')
+        const user = await User.findById({ _id })
 
         if (!user) {
             return res.send(error(404, 'User not found'))
@@ -52,7 +52,7 @@ const updateUserProfile = async (req, res) => {
             })
 
             user.avatar = {
-                url: cloudImg.secur.url
+                url: cloudImg.secure_url
             }
         }
 
