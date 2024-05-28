@@ -83,6 +83,76 @@ const getAllProjects = async (req, res) => {
     }
 }
 
+const updateProjectDetails = async (req, res) => {
+    try {
+        const { projectId, title, desc, location } = req.body
+
+        const userId = req._id
+
+        if (!userId) {
+            return res.send(error(400, 'User not found'))
+        }
+
+        const project = await Project.findById(projectId)
+
+        if (!project) {
+            return res.send(error(404, 'project not found'))
+        }
+
+        if (project.owner.toString() !== userId) {
+            return res.send(error(403, 'Only user can update this project'))
+        }
+
+        if (title) {
+            project.title = title
+        }
+
+        if (desc) {
+            project.desc = desc
+        }
+
+        if (location) {
+            project.location = location
+        }
+
+        await project.save()
+
+        return res.send(success(200, { project }))
+
+    } catch (e) {
+        return res.send(error(500, e.message))
+    }
+}
+
+const deleteProject = async (req, res) => {
+    try {
+        const { projectId } = req.body
+
+        const userId = req._id
+
+        if (!userId) {
+            return res.send(error(400, 'User not found'))
+        }
+
+        const project = await Project.findById(projectId)
+
+        if (!project) {
+            return res.send(error(404, 'Project not found'))
+        }
+
+        if (project.owner.toString() !== userId) {
+            return res.send(error(403, 'Only user can delete this project'))
+        }
+
+        await project.deleteOne()
+
+        return res.send(success(200, 'project deleted successfully'))
+
+    } catch (e) {
+        return res.send(error(500, e.message))
+    }
+}
+
 // const deleteAllProjects = async (req, res) => {
 //     try {
 
@@ -103,6 +173,8 @@ const getAllProjects = async (req, res) => {
 module.exports = {
     createProjectController,
     myProjects,
-    getAllProjects
+    getAllProjects,
+    updateProjectDetails,
+    deleteProject
     // deleteAllProjects
 }

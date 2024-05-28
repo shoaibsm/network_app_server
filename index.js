@@ -19,7 +19,7 @@ cloudinary.config({
 const app = express()
 
 //global middlewares
-app.use(express.json())
+app.use(express.json({ limit: '1mb' }))
 app.use(morgan('common'))
 app.use(cookieParser())
 
