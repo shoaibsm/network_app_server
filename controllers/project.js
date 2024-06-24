@@ -153,28 +153,10 @@ const deleteProject = async (req, res) => {
     }
 }
 
-// const deleteAllProjects = async (req, res) => {
-//     try {
-
-//         // const allProjects = await Project.deleteMany()
-//         const allProjects = await Project.find()
-
-//         if (!allProjects || allProjects.length === 0) {
-//             return res.send(error(404, 'no projects found'))
-//         }
-
-//         return res.send(success(200, { allProjects }))
-
-//     } catch (e) {
-//         return res.send(error(500, e.message))
-//     }
-// }
-
 module.exports = {
     createProjectController,
     myProjects,
     getAllProjects,
     updateProjectDetails,
     deleteProject
-    // deleteAllProjects
 }

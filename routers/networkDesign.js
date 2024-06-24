@@ -1,9 +1,9 @@
-const router = require('express').Router()
-const networkDesign = require('../controllers/networkDesign')
 const requireUser = require('../middlewares/requireUser')
+const networkDesignController = require('../controllers/networkDesign')
 
-router.post('/fiber-design', requireUser, networkDesign.fiberDesignController)
-// router.post('/fetch-polyline/:projectId', requireUser, networkDesign.fetchPolylineData)
-router.get('/fetch-polyline/:projectId', requireUser, networkDesign.fetchPolylineData)
+const router = require('express').Router()
+
+router.post('/save-fiber', requireUser, networkDesignController.saveFiberController)
+router.get('/get-fiberPath/:projectId', requireUser, networkDesignController.getFiberController)
 
 module.exports = router
