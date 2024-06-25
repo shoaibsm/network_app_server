@@ -4,6 +4,6 @@ const networkDesignController = require('../controllers/networkDesign')
 const router = require('express').Router()
 
 router.post('/save-fiber', requireUser, networkDesignController.saveFiberController)
-router.get('/get-fiberPath/:projectId', requireUser, networkDesignController.getFiberController)
+router.get('/get-fiberPath/:projectId', requireUser, networkDesignController.getFiberPathsController)
 
 module.exports = router

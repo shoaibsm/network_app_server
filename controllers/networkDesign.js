@@ -50,14 +50,16 @@ const saveFiberController = async (req, res) => {
     }
 }
 
-const getFiberController = async (req, res) => {
+const getFiberPathsController = async (req, res) => {
     try {
         const { projectId } = req.params;
 
         const fiberRoutes = await FiberRoute.findOne({ projectId });
 
         if (!fiberRoutes || fiberRoutes.length === 0) {
+
             return res.send(error(404, 'No fiber routes found for this project'));
+
         }
 
         return res.send(success(200, { fiberRoutes }));
@@ -69,5 +71,5 @@ const getFiberController = async (req, res) => {
 
 module.exports = {
     saveFiberController,
-    getFiberController
+    getFiberPathsController
 }
